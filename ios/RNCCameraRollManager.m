@@ -321,8 +321,8 @@ RCT_EXPORT_METHOD(getPhotos:(NSDictionary *)params
       // asset to the `assets` output array, you should do it inside this
       // block and ensure the logic for `collectAssetMayOmitAsset` above is
       // updated
-      if (collectAssetMayOmitAsset) {
-        if (afterCursor && !foundAfter) {
+     if (collectAssetMayOmitAsset) {
+         if (afterCursor && !foundAfter) {
           if ([afterCursor isEqualToString:uri]) {
             foundAfter = YES;
           }
@@ -330,22 +330,6 @@ RCT_EXPORT_METHOD(getPhotos:(NSDictionary *)params
         }
 
 
-        if ([mimeTypes count] > 0 && resource) {
-          CFStringRef const uti = (__bridge CFStringRef _Nonnull)(resource.uniformTypeIdentifier);
-          NSString *const mimeType = (NSString *)CFBridgingRelease(UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType));
-
-          BOOL __block mimeTypeFound = NO;
-          [mimeTypes enumerateObjectsUsingBlock:^(NSString * _Nonnull mimeTypeFilter, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([mimeType isEqualToString:mimeTypeFilter]) {
-              mimeTypeFound = YES;
-              *stop = YES;
-            }
-          }];
-
-          if (!mimeTypeFound) {
-            return;
-          }
-        }
       }
 
       // If we've accumulated enough results to resolve a single promise
